@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrobin <hrobin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:23:47 by hrobin            #+#    #+#             */
-/*   Updated: 2023/04/14 18:04:59 by hrobin           ###   ########.fr       */
+/*   Updated: 2023/04/17 15:31:30 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,27 @@ void	child_prcs(char **av, char **env, char **cmds, int fd[2])
 		perror("OPEN AV[1]");
 		exit(EXIT_FAILURE);
 	}
+	if (path_ok == NULL)
+		wrong_cmds(cmds);
 	if (dup2(infile, STDIN_FILENO) < 0)
 		exit(EXIT_FAILURE);
 	if (dup2(fd[1], STDOUT_FILENO) < 0)
 		exit(EXIT_FAILURE);
 	close (fd[0])
+	execve(path_ok, cmds, env);
+	close (fd[0]);
+	free(path_ok);
+	close(infile);
+}
 
+void	parent_prcs(char **av, char **env, char **cmds, int fd[2])
+{
+	int	outfile;
+	char *path_ok;
 
+	outfile = open(argv[4], O_RDONLY);
+	path_ok = verif_path(env, cmds[0]);
+	
 }
 
 void	do_prcs(char **av, char **env, pid_t id, int fd[2])
