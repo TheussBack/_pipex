@@ -31,7 +31,7 @@ OBJS = ${SRCS:.c=.o}
 
 INC = ./includes
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -g3
 
 .c.o:
 	${CC} ${FLAGS} -I${INC} -c $< -o ${<:.c=.o}

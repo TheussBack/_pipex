@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:23:47 by hrobin            #+#    #+#             */
-/*   Updated: 2023/04/19 18:15:03 by marvin           ###   ########.fr       */
+/*   Updated: 2023/04/19 19:52:00 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,15 @@ void	child_prcs(char **av, char **env, char **cmds, int fd[2])
 	if (path_ok == NULL)
 		wrong_cmds(cmds);
 	if (dup2(infile, STDIN_FILENO) < 0)
+	{
+		perror("dup2 infile");
 		exit(EXIT_FAILURE);
+	}
 	if (dup2(fd[1], STDOUT_FILENO) < 0)
+	{
+		perror("dup2 fd[1]");
 		exit(EXIT_FAILURE);
+	}
 	close (fd[0]);
 	execve(path_ok, cmds, env);
 	close (fd[1]);
@@ -42,16 +48,25 @@ void	parent_prcs(char **av, char **env, char **cmds, int fd[2])
 	int	outfile;
 	char *path_ok;
 
-	outfile = open(av[4], O_RDONLY);
+	outfile = open(av[4], O_RDWR | O_TRUNC);
 	path_ok = verif_path(cmds[0], env);
 	if (outfile == -1)
+	{
+		perror("OPEN AV[4]");
 		exit(EXIT_FAILURE);
+	}
 	if (path_ok == NULL)
 		wrong_cmds(cmds);
 	if (dup2(fd[0], STDIN_FILENO) < 0)
+	{
+		perror("dup2 fd[0]");
 		exit(EXIT_FAILURE);
+	}
 	if (dup2(outfile, STDOUT_FILENO) < 0)
+	{
+		perror("dup2 outfile");
 		exit(EXIT_FAILURE);
+	}
 	close(fd[1]);
 	execve(path_ok, cmds, env);
 	close(fd[0]);
@@ -66,7 +81,10 @@ void	do_prcs(char **av, char **env, pid_t id, int fd[2])
 
 	id = fork();
 	if (id == -1)
+	{
+		perror("id = -1");
 		exit (EXIT_FAILURE);
+	}
 	if (id == 0)
 	{
 		cmds = ft_split(av[2], ' ');

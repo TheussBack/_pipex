@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 17:36:58 by hrobin            #+#    #+#             */
-/*   Updated: 2023/04/19 18:47:51 by marvin           ###   ########.fr       */
+/*   Updated: 2023/04/19 19:39:25 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*add_end_path(char *str, char *cmd, char c)
 
 	i = 0;
 	j = -1;
-	cpy = malloc(sizeof(char) * (ft_strlen(str) + ft_strlen(cmd) + 1));
+	cpy = malloc(sizeof(char) * (ft_strlen(str) + ft_strlen(cmd) + 2));
 	if (!cpy)
 		return (NULL);
 	while (str[i])
@@ -47,6 +47,7 @@ char	*add_end_path(char *str, char *cmd, char c)
 		i++;
 	}
 	cpy[i] = c;
+	i += 1;
 	while (cmd[++j])
 		cpy[i++] = cmd[j];
 	cpy[i] = '\0';
