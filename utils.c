@@ -3,27 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrobin <hrobin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 17:52:17 by hrobin            #+#    #+#             */
-/*   Updated: 2023/04/14 17:33:50 by hrobin           ###   ########.fr       */
+/*   Updated: 2023/04/19 16:57:44 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-char	*get_path(char **env)
-{
-	int	i;
-	i = 0;
-	while (env[i])
-	{
-		if (ft_strncmp(env[i], "PATH=/", 6) == 0)
-			return(env[i] + 5);
-		i++;
-	}
-	return (NULL);
-}
+
 
 int	ft_strncmp(char *s1, char *s2, size_t n)
 {
@@ -39,4 +28,14 @@ int	ft_strncmp(char *s1, char *s2, size_t n)
 		i++;
 	}
 	return (0);
+}
+
+int	ft_strlen(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
 }
