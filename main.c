@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hrobin <hrobin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:23:47 by hrobin            #+#    #+#             */
-/*   Updated: 2023/04/19 19:52:00 by marvin           ###   ########.fr       */
+/*   Updated: 2023/04/21 15:07:39 by hrobin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	parent_prcs(char **av, char **env, char **cmds, int fd[2])
 	int	outfile;
 	char *path_ok;
 
-	outfile = open(av[4], O_RDWR | O_TRUNC);
+	outfile = open(av[4], O_RDWR | O_TRUNC | O_CREAT, 0777);
 	path_ok = verif_path(cmds[0], env);
 	if (outfile == -1)
 	{
@@ -88,14 +88,14 @@ void	do_prcs(char **av, char **env, pid_t id, int fd[2])
 	if (id == 0)
 	{
 		cmds = ft_split(av[2], ' ');
-		if (!cmds)
+		if (!cmds[0])
 			wrong_cmds(cmds);
 		child_prcs(av, env, cmds, fd);
 	}
 	else
 	{
 		cmds = ft_split(av[3], ' ');
-		if (!cmds)
+		if (!cmds[0])
 			wrong_cmds(cmds);
 		waitpid(id, NULL, WNOHANG);
 		parent_prcs(av, env, cmds, fd);
@@ -110,7 +110,7 @@ int	main(int ac, char **av, char **env)
 	int	fd[2];
 
 	if (ac < 5)
-		return (1);
+		exit (EXIT_FAILURE);
 	if (pipe(fd) == -1)
 	{
 		perror("error occured with the pipe");

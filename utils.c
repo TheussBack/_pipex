@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hrobin <hrobin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 17:52:17 by hrobin            #+#    #+#             */
-/*   Updated: 2023/04/19 16:57:44 by marvin           ###   ########.fr       */
+/*   Updated: 2023/04/21 14:52:11 by hrobin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-
 
 int	ft_strncmp(char *s1, char *s2, size_t n)
 {
@@ -32,7 +30,7 @@ int	ft_strncmp(char *s1, char *s2, size_t n)
 
 int	ft_strlen(char *str)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	while (str[i])
